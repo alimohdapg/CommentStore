@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Comment Store Homepage
+{% endblock %}
+
+{% block content %}
+    <h1 class="main-header">Comments</h1>
+    {% if cmnt_list|length != 0 %}
+        <div class="list-group">
+            {% for cmnt in cmnt_list %}
+                <li class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ cmnt.name }}</h5>
+                        <small class="text-muted">{{ cmnt.visit_date }}</small>
+                    </div>
+                    <p class="mb-1">{{ cmnt.comment_str }}</p>
+                </li>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h4 class="main-header">There are no comments for user: {{ user.username }}</h4>
+    {% endif %}
+{% endblock %}
