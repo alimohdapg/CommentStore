@@ -137,5 +137,5 @@ GitHub.sublime-settings
 .history
 
 # https
-.crt
-.key
+/comment_store.crt
+/comment_store.key
