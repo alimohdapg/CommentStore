@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.csrf import csrf_protect
 from .forms import RegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
 
 # Create your views here.
+@csrf_protect
 def register_user(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -23,11 +25,13 @@ def register_user(request):
     return render(request, 'register/register_user.html', {'register_user': form})
 
 
+@csrf_protect
 @login_required(login_url='/register/login_user')
 def home(request):
     return render(request, 'register/home.html')
 
 
+@csrf_protect
 def login_user(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -44,6 +48,7 @@ def login_user(request):
     return render(request, 'register/login_user.html', {'login_user': form})
 
 
+@csrf_protect
 @login_required(login_url='/register/login_user')
 def logout_user(request):
     logout(request)

@@ -1,16 +1,19 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from datetime import datetime
+from django.views.decorators.csrf import csrf_protect
+
 from .models import Comment
 from .forms import InsertNewComment
 
 
+@csrf_protect
 @login_required(login_url='/register/login_user')
 def comment_list(request):
     cmnt_list = list(Comment.objects.all())
     return render(request, "commentstoreapp/comment_list.html", {'cmnt_list': cmnt_list})
 
 
+@csrf_protect
 @login_required(login_url='/register/login_user')
 def add_comment(request):
     if request.method == 'POST':
